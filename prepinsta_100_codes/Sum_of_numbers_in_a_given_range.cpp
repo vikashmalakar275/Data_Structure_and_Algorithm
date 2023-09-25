@@ -1,5 +1,6 @@
 /*
-Given two integer inputs num1 and num2, the objective is to write a code to Find the Sum of Numbers in a Given Range in C. To do so we’ll keep iterating and adding the numbers from num1 until num2 to the Sum variable.
+Given two integer inputs num1 and num2, the objective is to write a code to Find the Sum of Numbers in a Given Range in C. 
+To do so we’ll keep iterating and adding the numbers from num1 until num2 to the Sum variable.
 
 Example
 Input : 2 6
