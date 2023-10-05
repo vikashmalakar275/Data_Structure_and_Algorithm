@@ -1,4 +1,12 @@
 /*
+Largest Element of  the array using Recursion in C++
+Here, in this page we will discuss the program to find the largest element of the array using recursion in C++ programming language. We are given with an array and we need to print the largest element among the elements of the array.
+
+Example :
+
+Input : arr[6] = {13, 89, 76, 43, 7, 90}
+Output : Largest Element is 90
+We will discuss both approaches to find largest element using recursion and iteratively.
 */
 
 #include <iostream>
