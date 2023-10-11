@@ -1,1 +1,4 @@
-Master Pointers
+smart Pointers
+Design pattern
+UML
+QT
