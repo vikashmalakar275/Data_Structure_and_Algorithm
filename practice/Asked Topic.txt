@@ -2,3 +2,6 @@ smart Pointers
 Design pattern
 UML
 QT
+Singleton class
+linked list
+level order traversal in tree   
