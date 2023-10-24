@@ -35,6 +35,7 @@ Union of arr1 and arr2 is {1,2,3,4,5,6,7,8,9,10,11,12}
 #include <set>
 using namespace std;
 
+//Solution1
 vector < int > Union_1(vector<int> arr1, vector<int> arr2, int n, int m) {
   map < int, int > freq;
   vector < int > Union;
@@ -47,6 +48,7 @@ vector < int > Union_1(vector<int> arr1, vector<int> arr2, int n, int m) {
   return Union;
 }
 
+//Solution2
 vector < int > Union_2(vector<int> arr1, vector<int> arr2, int n, int m) {
   set < int > s;
   vector < int > Union;
@@ -59,6 +61,7 @@ vector < int > Union_2(vector<int> arr1, vector<int> arr2, int n, int m) {
   return Union;
 }
 
+//Solution3
 vector < int > Union_3(vector<int> arr1, vector<int> arr2, int n, int m) {
   int i = 0, j = 0; // pointers
   vector < int > Union; // Uninon vector
