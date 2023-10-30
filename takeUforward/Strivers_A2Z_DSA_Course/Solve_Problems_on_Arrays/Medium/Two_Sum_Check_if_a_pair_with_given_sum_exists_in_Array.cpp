@@ -21,3 +21,53 @@ Result: NO (for 1st variant)
 	[-1, -1] (for 2nd variant)
 Explanation: There exist no such two numbers whose sum is equal to the target.
 */
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void twoSumCheck(vector<int> &arr, int target) 
+{
+       vector<int> indices;
+       bool flag = false;
+       for (int i = 0; i < arr.size(); i++)
+       {
+              for (int j = i + 1; j < arr.size(); j++)
+              {
+                     if (arr[i] + arr[j] == target)
+                     {
+                            indices.push_back(i);
+                            indices.push_back(j);
+                            flag = true;
+                     }
+              }
+       }
+       if (flag)
+       {
+              cout << "YES, index are "<< "[" << indices[0] << ", " << indices[1] << "]" << endl;
+       }
+       else
+       {
+              cout << "NO " << "[-1, -1]" << endl;
+       }
+}
+
+int main() {
+    int n;
+    cout << "Enter the Size of Array: " << endl;
+    cin >> n;
+    
+    int target;
+    cout << "Enter the target sum: " << endl;
+    cin >> target;
+    
+    cout << "Enter the elements of the array: " << endl;
+    vector<int> arr;
+    for (int i = 0; i < n; i++) {
+        int a;
+        cin >> a;
+        arr.push_back(a);
+    }
+    twoSumCheck(arr,target);
+    return 0;
+}
