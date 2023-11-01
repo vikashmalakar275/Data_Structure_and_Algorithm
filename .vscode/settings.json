@@ -4,6 +4,7 @@
         "vector": "cpp",
         "__bit_reference": "cpp",
         "set": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "map": "cpp"
     }
 }
