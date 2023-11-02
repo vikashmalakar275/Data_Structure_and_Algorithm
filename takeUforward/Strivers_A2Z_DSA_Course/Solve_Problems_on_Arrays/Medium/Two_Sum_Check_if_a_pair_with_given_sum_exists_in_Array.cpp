@@ -26,7 +26,11 @@ Explanation: There exist no such two numbers whose sum is equal to the target.
 #include <vector>
 using namespace std;
 
-void twoSumCheck(vector<int> &arr, int target) 
+//Naive Approach(Brute-force approach)
+//Time Complexity: O(N2), where N = size of the array.
+//Reason: There are two loops(i.e. nested) each running for approximately N times.
+//Space Complexity: O(1) as we are not using any extra space.
+void twoSumCheck_1(vector<int> arr, int target) 
 {
        vector<int> indices;
        bool flag = false;
@@ -52,6 +56,75 @@ void twoSumCheck(vector<int> &arr, int target)
        }
 }
 
+//Better Approach(using Hashing):
+//TC = O(n)
+//SC = O(n)
+void twoSumCheck_2(vector<int> arr,int target)
+{
+       unordered_map<int, int> mpp;
+       vector<int> indices;
+       bool flag = false;
+       for (int i = 0; i < arr.size(); i++)
+       {
+              int num = arr[i];
+              int moreNeeded = target - num;
+              if (mpp.find(moreNeeded) != mpp.end())
+              {
+                     flag = true;
+                     indices.push_back(mpp[moreNeeded]);
+                     indices.push_back(i);
+              }
+              mpp[num] = i;
+       }
+       if (flag)
+       {
+              cout << "YES, index are "<< "[" << indices[0] << ", " << indices[1] << "]" << endl;
+       }
+       else
+       {
+              cout << "NO " << "[-1, -1]" << endl;
+       }
+}
+
+//optimal Solution
+//Time Complexity: O(N) + O(N*logN), where N = size of the array.
+//Space Complexity: O(1) as we are not using any extra space.
+// void twoSumCheck_3(vector<int> arr,int target)
+// {
+//        int n=arr.size();
+//        sort(arr.begin(), arr.end());
+//        vector<int> indices;
+//        int left = 0, right = n - 1;
+//        bool flag = false;
+//        while (left < right)
+//        {
+//               int sum = arr[left] + arr[right];
+//               if (sum == target) 
+//               {
+//                      flag = true;
+//                      indices.push_back(left);
+//                      indices.push_back(right);
+//               }
+//               else if (sum < target)
+//               {
+//                      left++;
+//               }
+//               else 
+//               {
+//                      right--;
+//               }
+//        }
+//        if (flag)
+//        {
+//               cout << "YES, index are "<< "[" << indices[0] << ", " << indices[1] << "]" << endl;
+//        }
+//        else
+//        {
+//               cout << "NO " << "[-1, -1]" << endl;
+//        }
+// }
+
+
 int main() {
     int n;
     cout << "Enter the Size of Array: " << endl;
@@ -68,6 +141,8 @@ int main() {
         cin >> a;
         arr.push_back(a);
     }
-    twoSumCheck(arr,target);
+    twoSumCheck_1(arr,target);
+    twoSumCheck_2(arr,target);
+//    twoSumCheck_3(arr,target);
     return 0;
 }
