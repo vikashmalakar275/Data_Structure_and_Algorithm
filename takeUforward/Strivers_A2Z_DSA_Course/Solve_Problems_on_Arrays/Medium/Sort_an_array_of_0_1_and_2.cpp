@@ -59,13 +59,13 @@ void sort_array_012_2(vector<int> arr)
     {
         arr[i] = 0;
     }
-    for(int i=count_0;i<count_1;i++)
+    for(int i=count_0;i<count_0+count_1;i++)
     {
-        arr[i] = 0;
+        arr[i] = 1;
     }
-    for(int i=count_1;i<count_2;i++)
+    for(int i=count_0+count_1;i<arr.size();i++)
     {
-        arr[i] = 0;
+        arr[i] = 2;
     }
 
     cout<<"Array after soritng :"<<endl;
