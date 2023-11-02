@@ -81,7 +81,7 @@ void sort_array_012_2(vector<int> arr)
 //Time Complexity: O(N), where N = size of the given array.
 //Reason: We are using a single loop that can run at most N times.
 //Space Complexity: O(1) as we are not using any extra space.
-void sortArray(vector<int> arr)
+void sort_array_012_3(vector<int> arr)
 {
     int n = arr.size();
     int low = 0, mid = 0, high = n - 1;
@@ -103,6 +103,12 @@ void sortArray(vector<int> arr)
             high--;
         }
     }
+    cout<<"Array after soritng :"<<endl;
+    for(int i=0;i<arr.size();i++)
+    {
+        cout<<arr[i]<<" ";
+    }
+    cout<<endl;
 }
 
 int main()
@@ -118,4 +124,7 @@ int main()
         cin>>a;
         arr.push_back(a);
     }
+    sort_array_012_1(arr);
+    sort_array_012_2(arr);
+    sort_array_012_3(arr);
 }
