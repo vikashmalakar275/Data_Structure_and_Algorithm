@@ -74,7 +74,7 @@ int maxSubarraySum_2(vector<int> arr)
 //SC = O(1)
 int maxSubarraySum_3(vector<int> arr)
 {
-    int max_result = INT_MIN;
+    int max_result = 0;
     int sum = 0;
     for(int i=0;i<arr.size();i++)
     {
