@@ -17,7 +17,12 @@ Explanation: Array is rotated to right by 3 position.
 #include <iostream>
 using namespace std;
 
-void Rotatetoright(int arr[], int n, int k)
+//Approach 1
+//using a temp array
+//This function used for rotate a array to right by k 
+//Time Complexity: O(n)
+//Space Complexity: O(k) since k array element needs to be stored in temp array 
+void Rotatetoright(vector<int> arr, int n, int k)
 {
   if (n == 0)
     return;
@@ -42,9 +47,14 @@ void Rotatetoright(int arr[], int n, int k)
   {
     cout << arr[i] << " ";
   }
+  cout<<endl;
 }
 
-void Rotatetoleft(int arr[], int n, int k)
+//using a temp array
+//This function used for rotate a array to left by k 
+//Time Complexity: O(n)
+//Space Complexity: O(k) since k array element needs to be stored in temp array 
+void Rotatetoleft(vector<int> arr, int n, int k)
 {
   if (n == 0)
     return;
@@ -69,9 +79,13 @@ void Rotatetoleft(int arr[], int n, int k)
   {
     cout << arr[i] << " ";
   }
+  cout<<endl;
 }
 
-void Reverse(int arr[], int start, int end)
+
+//Approach 2 : using recursion
+//Function used for resvese the array
+void Reverse(vector<int> arr, int start, int end)
 {
   while (start <= end)
   {
@@ -82,8 +96,11 @@ void Reverse(int arr[], int start, int end)
     end--;
   }
 }
+
 // Function to Rotate k elements to right
-void Rotateeletoright(int arr[], int n, int k)
+//Time Complexity – O(N) where N is the number of elements in an array
+//Space Complexity – O(1) since no extra space is required
+void Rotateeletoright(vector<int> arr, int n, int k)
 {
   // Reverse first n-k elements
   Reverse(arr, 0, n - k - 1);
@@ -93,19 +110,10 @@ void Rotateeletoright(int arr[], int n, int k)
   Reverse(arr, 0, n - 1);
 }
 
-void Reverse(int arr[], int start, int end)
-{
-  while (start <= end)
-  {
-    int temp = arr[start];
-    arr[start] = arr[end];
-    arr[end] = temp;
-    start++;
-    end--;
-  }
-}
 // Function to Rotate k elements to left
-void Rotateeletoleft(int arr[], int n, int k)
+//Time Complexity – O(N) where N is the number of elements in an array
+//Space Complexity – O(1) since no extra space is required
+void Rotateeletoleft(vector<int> arr, int n, int k)
 {
   // Reverse first k elements
   Reverse(arr, 0, k - 1);
@@ -133,7 +141,17 @@ int main()
     cin>>k;
     string str;
     cout<<"Enter you rotate choice eg. left/right :"<<endl;
-    getline(cin,str);
-    cout<<"Array after "<<k<<" left rotate :"<<endl;
+    cin>>str;
+    if(str == "left")
+    {
+      cout<<"Array after left rotate :"<<endl;
+      Rotatetoleft(arr,n,k);
+
+    }
+    if(str == "right")
+    {
+      cout<<"Array after right rotate :"<<endl;
+      Rotatetoright(arr,n,k);
+    }
     return 0;
 }
