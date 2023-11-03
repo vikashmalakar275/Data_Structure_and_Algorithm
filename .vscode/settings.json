@@ -5,6 +5,7 @@
         "__bit_reference": "cpp",
         "set": "cpp",
         "ostream": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "unordered_map": "cpp"
     }
 }
