@@ -85,7 +85,7 @@ void Rotatetoleft(vector<int> arr, int n, int k)
 
 //Approach 2 : using recursion
 //Function used for resvese the array
-void Reverse(vector<int> arr, int start, int end)
+void Reverse(vector<int> &arr, int start, int end)
 {
   while (start <= end)
   {
@@ -100,7 +100,7 @@ void Reverse(vector<int> arr, int start, int end)
 // Function to Rotate k elements to right
 //Time Complexity – O(N) where N is the number of elements in an array
 //Space Complexity – O(1) since no extra space is required
-void Rotateeletoright(vector<int> arr, int n, int k)
+void Rotateeletoright(vector<int> &arr, int n, int k)
 {
   // Reverse first n-k elements
   Reverse(arr, 0, n - k - 1);
@@ -113,7 +113,7 @@ void Rotateeletoright(vector<int> arr, int n, int k)
 // Function to Rotate k elements to left
 //Time Complexity – O(N) where N is the number of elements in an array
 //Space Complexity – O(1) since no extra space is required
-void Rotateeletoleft(vector<int> arr, int n, int k)
+void Rotateeletoleft(vector<int> &arr, int n, int k)
 {
   // Reverse first k elements
   Reverse(arr, 0, k - 1);
@@ -146,12 +146,18 @@ int main()
     {
       cout<<"Array after left rotate :"<<endl;
       Rotatetoleft(arr,n,k);
-
+      Rotateeletoleft(arr,n,k);
     }
     if(str == "right")
     {
       cout<<"Array after right rotate :"<<endl;
-      Rotatetoright(arr,n,k);
+     Rotatetoright(arr,n,k);
+     Rotateeletoright(arr,n,k);
     }
+    for(int i=0;i<n;i++)
+    {
+      cout<<arr[i]<<" ";
+    }
+    cout<<endl;
     return 0;
 }
