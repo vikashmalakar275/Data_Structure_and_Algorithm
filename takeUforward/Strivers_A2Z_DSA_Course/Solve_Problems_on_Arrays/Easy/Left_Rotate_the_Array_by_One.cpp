@@ -23,6 +23,9 @@ last index which is also by the way the first index.
 #include <iostream>
 using namespace std;
 
+//Optimal Solution
+//Time Complexity: O(n), as we iterate through the array only once.
+//Space Complexity: O(1) as no extra space is used
 void lef_rotatearray(vector<int> &arr)
 {
     int n = arr.size();
@@ -34,6 +37,9 @@ void lef_rotatearray(vector<int> &arr)
     arr[n-1] = temp;
 }
 
+//Brute Force Approach
+//Time Complexity: O(n), as we iterate through the array only once.
+//Space Complexity: O(n) as we are using another array of size, same as the given array.
 void left_rotate_array_2(vector<int> arr, int n) {
   int temp[n];
   for (int i = 1; i < n; i++) {
