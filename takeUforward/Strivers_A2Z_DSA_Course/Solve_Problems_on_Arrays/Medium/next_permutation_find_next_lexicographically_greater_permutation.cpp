@@ -15,3 +15,27 @@ Input format: Arr[] = {3,2,1}
 Output: Arr[] = {1,2,3}
 Explanation: As we see all permutations of {1,2,3}, we find {3,2,1} at the last position. So, we have to return the topmost permutation.
 */
+
+#include <iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+int main()
+{
+    int n;
+    cout<<"Enter the size of array :"<<endl;
+    cin>>n;
+    vector<int> arr;
+    cout<<"Enter the element of array :"<<endl;
+    for(int i=0;i<n;i++)
+    {
+        int a;
+        cin>>a;
+        arr.push_back(a);
+    }
+    next_permutation(arr.begin(),arr.end());
+    cout<<"The next permutation is: "<<arr[0]<<" "<<arr[1]<<" "<<arr[2]<<endl;
+
+    return 0;
+}
