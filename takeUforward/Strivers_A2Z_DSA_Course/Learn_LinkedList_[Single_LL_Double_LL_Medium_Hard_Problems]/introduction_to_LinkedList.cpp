@@ -195,6 +195,19 @@ bool searchElement(int data)
     return false;
 }
 
+//Function to get length of linked list
+void getLength()
+{
+    Node* temp = head;
+    int len = 0;
+    while(temp->next != nullptr)
+    {
+        len++;
+        temp = temp->next;
+    }
+    cout<<"Length of the linked list = "<<len+1<<endl;
+}
+
 // Function to display the linked list
 void display() 
 {
@@ -222,7 +235,8 @@ int main()
         cout << "7. Delete from Any Position.\n";
         cout << "8. Search a Element on a Linked List.\n";
         cout << "9. Display Linked List.\n";
-        cout << "10. Exit.\n";
+        cout << "10. Get Length of Linked List.\n";
+        cout << "11. Exit.\n";
         cout<<"==================================================\n";
         int choice;
         cin >> choice;
@@ -275,6 +289,9 @@ int main()
                 display();
                 break;
             case 10:
+                getLength();
+                break;
+            case 11:
                 exit(0);
             default:
                 cout << "Invalid choice. Please try again." << endl;
