@@ -39,16 +39,18 @@ Node* createNode(int data)
 void createDLL()
 {
     cout<<"Enter the initial size of Double Linked List :"<<endl;
-    int n;
-    cin>>n;
-    while (n-->0)
+    int size;
+    cin>>size;
+    while (size-->0)
     {
         Node* new_node = new Node;
-        cout<<"Enter data :";
-        cin>>new_node->data;
-        new_node->next = NULL;
-        new_node->prev = NULL;
-        if(head->next == NULL)
+        cout<<"Enter data : ";
+        int data;
+        cin>>data;
+        new_node->data = data;
+        new_node->next = nullptr;
+        new_node->prev = nullptr;
+        if(head == nullptr)
         {
             head = new_node;
             tail = new_node;
@@ -60,23 +62,52 @@ void createDLL()
             tail = tail->next; 
         }
     }
-    
-
 }
 
 void insertAtBeginning(int data)
 {
-
+    Node* newNode = createNode(data);
+    newNode->next = head;
+    head = newNode;
 }
 
 void insertAtEnd(int data)
 {
-
+    Node* newNode = createNode(data);
+    tail->next = newNode;
+    newNode->prev = tail;
+    tail = tail->next;
 }
 
+// 1 <-> 2 <-> 3 <-> 4 <-> null
 void insertAtPosition(int data, int position)
 {
-
+    if (position < 1) 
+    {
+        cout << "Invalid position." << endl;
+        return;
+    }
+    if (position == 1) 
+    {
+        insertAtBeginning(data);
+    } 
+    else 
+    {
+        Node* newNode = createNode(data);
+        Node* temp = head;
+        for (int i = 1; i < position - 1; i++) 
+        {
+            if (temp == nullptr) 
+            {
+                cout << "Invalid position." << endl;
+                return;
+            }
+            temp = temp->next;
+        }
+        newNode->next = temp->next;
+        temp->next = newNode;
+        newNode->prev = newNode->next->prev;
+    }
 }
 
 void deleteFromBeginning()
@@ -96,24 +127,45 @@ void deleteFromPosition(int position)
 
 bool searchElement(int data)
 {
-
+    Node* temp = head;
+    while(temp != NULL)
+    {
+        if(temp->data == data)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 void display()
 {
+    if(head == nullptr)
+    {
+        cout<<"Doubly linked list not create yet."<<endl;
+        return;
+    }
     Node* temp = head;
+    cout<<" NULL <-->";
 
     while(temp != NULL)
     {
-        cout<<temp->data<<" <=> ";
+        cout<<temp->data<<" <--> ";
         temp = temp->next;
     }
-    cout<<" nullpte "<<endl;
+    cout<<" NULL "<<endl;
 }
 
 void getLength()
 {
-
+    int len = 0;
+    Node* temp = head;
+    while(temp != NULL)
+    {
+        len++;
+        temp = temp->next;
+    }
+    cout<<"Length of Doubly Linked List : "<<len<<endl;
 }
 
 int main()
