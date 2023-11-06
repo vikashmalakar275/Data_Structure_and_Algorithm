@@ -1,3 +1,19 @@
+/*
+Singly Linked List
+
+operation:-
+1. Create linked list.
+2. Insert New Node at Beginning.
+3. Insert New Node at End.
+4. Insert New Node at Any position.
+5. Delete from beginning.
+6. Delete from End.
+7. Delete from Any Position.
+8. Search a Element on a Linked List.
+9. Display Linked List.
+10. Get Length of Linked List.
+*/
+
 #include <iostream>
 using namespace std;
 
