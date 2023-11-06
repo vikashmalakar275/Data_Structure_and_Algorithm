@@ -21,6 +21,39 @@ Explanation: As we see all permutations of {1,2,3}, we find {3,2,1} at the last 
 #include<algorithm>
 using namespace std;
 
+//own Function
+//Time Complexity: O(3N), where N = size of the given array
+//Finding the break-point, finding the next greater element, and reversal at the end takes O(N) for each, where N is the number of elements in the input array. This sums up to 3*O(N) which is approximately O(3N).
+//Space Complexity: Since no extra storage is required. Thus, its space complexity is O(1).
+vector<int> nextGreaterPermutation(vector<int> &arr) 
+{
+    int n = arr.size();
+    int ind = -1;
+    for (int i = n - 2; i >= 0; i--) 
+    {
+        if (arr[i] < arr[i + 1]) 
+        {
+            ind = i;
+            break;
+        }
+    }
+    if (ind == -1) 
+    {
+        reverse(arr.begin(), arr.end());
+        return arr;
+    }
+    for (int i = n - 1; i > ind; i--) 
+    {
+        if (arr[i] > arr[ind]) 
+        {
+            swap(arr[i], arr[ind]);
+            break;
+        }
+    }
+    reverse(arr.begin() + ind + 1, arr.end());
+    return arr;
+}
+
 int main()
 {
     int n;
@@ -36,6 +69,13 @@ int main()
     }
     next_permutation(arr.begin(),arr.end());
     cout<<"The next permutation is: "<<arr[0]<<" "<<arr[1]<<" "<<arr[2]<<endl;
+    vector<int> ans = nextGreaterPermutation(arr);
 
+    cout << "The next permutation is: [";
+    for (int i=0;i<ans.size();i++) 
+    {
+        cout << ans[i] << " ";
+    }
+    cout << "]"<<endl;
     return 0;
 }
