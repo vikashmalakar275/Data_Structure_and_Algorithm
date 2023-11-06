@@ -79,7 +79,7 @@ void insertAtEnd(int data)
     tail = tail->next;
 }
 
-// 1 <-> 2 <-> 3 <-> 4 <-> null
+
 void insertAtPosition(int data, int position)
 {
     if (position < 1) 
@@ -112,17 +112,47 @@ void insertAtPosition(int data, int position)
 
 void deleteFromBeginning()
 {
-
+    Node* temp = head;
+    head = head->next;
+    delete temp;
 }
 
 void deleteFromEnd()
 {
-
+    Node* temp = tail;
+    tail = tail->prev;
+    tail->next = nullptr;
+    delete temp;
 }
 
+// 1 <-> 2 <-> 3 <-> 4 <-> null
 void deleteFromPosition(int position)
 {
-
+    if (position < 1) 
+    {
+        cout << "Invalid position." << endl;
+        return;
+    }
+    if (position == 1) 
+    {
+        deleteFromBeginning();
+    } 
+    else 
+    {
+        Node* temp = head;
+        for (int i = 1; i < position; i++) 
+        {
+            if (temp == nullptr) 
+            {
+                cout << "Invalid position." << endl;
+                return;
+            }
+            temp = temp->next;
+        }
+        temp->prev->next = temp->next;
+        temp->next->prev = temp->prev;
+        delete temp;
+    }
 }
 
 bool searchElement(int data)
