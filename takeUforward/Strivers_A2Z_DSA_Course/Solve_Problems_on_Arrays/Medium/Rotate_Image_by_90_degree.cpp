@@ -3,7 +3,7 @@ Problem Statement: Given a matrix, your task is to rotate the matrix 90 degrees 
 Examples
 Example 1:
 
-Input: [[1,2,3],
+Input: [[1,2,3],  
         [4,5,6],
         [7,8,9]]
 
@@ -56,7 +56,10 @@ Explanation: Rotate the matrix anti-clockwise by 90 degrees and return it.
 #include<iostream>
 using namespace std;
 
-vector<vector<int> > rotateImageBy90Degree_clockwise(vector<vector<int> > arr)
+//Brute Force Approach
+//Time Complexity: O(N*N) to linearly iterate and put it into some other matrix.
+//Space Complexity: O(N*N) to copy it into some other matrix.
+vector<vector<int> > rotateImageBy90Degree_clockwise_1(vector<vector<int> > arr)
 {
     int n = arr.size();
     vector< vector<int> > rotated_arr(n, vector<int> (n,0));
@@ -70,7 +73,11 @@ vector<vector<int> > rotateImageBy90Degree_clockwise(vector<vector<int> > arr)
     return rotated_arr;
 }
 
-vector<vector<int> > rotateImageBy90Degree_anticlockwise(vector<vector<int> > arr)
+
+//Brute Force Approach
+//Time complexity: O(n*n) for traversing in matrix
+//Space complexity: O(n*n) for temporary matrix
+vector<vector<int> > rotateImageBy90Degree_anticlockwise_1(vector<vector<int> > arr)
 {
     int n = arr.size();
     vector< vector<int> > rotated_arr(n, vector<int> (n,0));
@@ -84,6 +91,47 @@ vector<vector<int> > rotateImageBy90Degree_anticlockwise(vector<vector<int> > ar
         ind--;
     }
     return rotated_arr;
+}
+//Optimal Approach
+//Time Complexity: O(N*N) + O(N*N).One O(N*N) is for transposing the matrix and the other is for reversing the matrix.
+//Space Complexity: O(1).
+vector<vector<int> > rotateImageBy90Degree_clockwise_2(vector<vector<int> > arr)
+{
+    int n = arr.size();
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<i;j++)
+        {
+            swap(arr[i][j],arr[j][i]);
+        }
+    }
+
+    for(int i=0;i<n;i++)
+    {
+        reverse(arr[i].begin(),arr[i].end());
+    }
+    return arr;
+}
+
+//Optimal approach
+//Time Complexity: O(N*N) + O(N*N).One O(N*N) is for transposing the matrix and the other is for reversing the matrix.
+//Space Complexity: O(1).
+vector<vector<int> > rotateImageBy90Degree_anticlockwise_2(vector<vector<int> > arr)
+{
+    int n = arr.size();
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<i;j++)
+        {
+            swap(arr[i][j],arr[j][i]);
+        }
+    }
+
+    for(int i=0;i<n;i++)
+    {
+        reverse(arr.begin(),arr.end());
+    }
+    return arr;
 }
 
 int main()
@@ -101,7 +149,7 @@ int main()
             cin >> arr[i][j];
         }
     }
-    vector<vector<int> > clockwise_rotated_array_1 = rotateImageBy90Degree_clockwise(arr);
+    vector<vector<int> > clockwise_rotated_array_1 = rotateImageBy90Degree_clockwise_1(arr);
     cout<<"Array after 90-degree clockwise rotation:"<<endl;
     for(int i=0;i<clockwise_rotated_array_1.size();i++)
     {
@@ -112,13 +160,36 @@ int main()
         cout<<"\n";
     }
     cout<<endl;
-    vector<vector<int> > anticlockwise_rotated_array_1 = rotateImageBy90Degree_anticlockwise(arr);
+    vector<vector<int> > anticlockwise_rotated_array_1 = rotateImageBy90Degree_anticlockwise_1(arr);
     cout<<"Array after 90-degree anticlockwise rotation:"<<endl;
     for(int i=0;i<anticlockwise_rotated_array_1.size();i++)
     {
         for(int j=0;j<anticlockwise_rotated_array_1.size();j++)
         {
             cout<<anticlockwise_rotated_array_1[i][j]<<" ";
+        }
+        cout<<"\n";
+    }
+    cout<<endl;
+
+    vector<vector<int> > clockwise_rotated_array_2 = rotateImageBy90Degree_clockwise_2(arr);
+    cout<<"Array after 90-degree clockwise rotation:"<<endl;
+    for(int i=0;i<clockwise_rotated_array_2.size();i++)
+    {
+        for(int j=0;j<clockwise_rotated_array_2.size();j++)
+        {
+            cout<<clockwise_rotated_array_2[i][j]<<" ";
+        }
+        cout<<"\n";
+    }
+    cout<<endl;
+    vector<vector<int> > anticlockwise_rotated_array_2 = rotateImageBy90Degree_anticlockwise_2(arr);
+    cout<<"Array after 90-degree anticlockwise rotation:"<<endl;
+    for(int i=0;i<anticlockwise_rotated_array_2.size();i++)
+    {
+        for(int j=0;j<anticlockwise_rotated_array_2.size();j++)
+        {
+            cout<<anticlockwise_rotated_array_2[i][j]<<" ";
         }
         cout<<"\n";
     }
