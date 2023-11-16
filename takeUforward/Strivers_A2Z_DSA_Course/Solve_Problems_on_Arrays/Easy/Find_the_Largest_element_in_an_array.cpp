@@ -27,7 +27,7 @@ int maxElement_1(vector<int> arr,int n)
 
 }
 
-//Recursive Approach
+//Optimal Approach
 //TC = O(n)
 //SC = O(1)
 int maxElement_2(vector<int> arr,int n)

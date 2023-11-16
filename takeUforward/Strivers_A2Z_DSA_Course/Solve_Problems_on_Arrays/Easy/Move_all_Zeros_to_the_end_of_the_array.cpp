@@ -16,7 +16,13 @@ Explanation: All the zeros are moved to the end and non-negative integers are mo
 #include <iostream>
 using namespace std;
 
-vector<int> moveAllZeroToLast(vector<int> &arr)
+//Brute Force Approach
+//Time Complexity: O(N) + O(X) + O(N-X) ~ O(2*N), where N = total no. of elements,
+//X = no. of non-zero elements, and N-X = total no. of zeros.
+//Reason: O(N) for copying non-zero elements from the original to the temporary array. O(X) for again copying it back from the temporary to the original array. O(N-X) for filling zeros in the original array. So, the total time complexity will be O(2*N).
+//Space Complexity: O(N), as we are using a temporary array to solve this problem and the maximum size of the array can be N in the worst case.
+//Reason: The temporary array stores the non-zero elements. In the worst case, all the given array elements will be non-zero.
+vector<int> moveAllZeroToLast_1(vector<int> arr)
 {
     vector<int> temp;
     for(int i=0;i<arr.size();i++)
@@ -37,28 +43,35 @@ vector<int> moveAllZeroToLast(vector<int> &arr)
     return arr;
 }
 
-vector<int> moveAllZeros(int n, vector<int> a) {
+//Optimal Approach
+//Time Complexity: O(N), N = size of the array.
+//Reason: We have used 2 loops and using those loops, we are basically traversing the array once.
+//Space Complexity: O(1) as we are not using any extra space to solve this problem.
+vector<int> moveAllZeroToLast_2(vector<int> arr)
+{
     int j = -1;
-    //place the pointer j:
-    for (int i = 0; i < n; i++) {
-        if (a[i] == 0) {
+    for(int i = 0; i < arr.size(); i++)
+    {
+        if (arr[i] == 0)
+        {
             j = i;
             break;
         }
     }
+    if (j == -1)
+    {
+        return arr;
+    }
 
-    //no non-zero elements:
-    if (j == -1) return a;
-
-    //Move the pointers i and j
-    //and swap accordingly:
-    for (int i = j + 1; i < n; i++) {
-        if (a[i] != 0) {
-            swap(a[i], a[j]);
+    for (int i = j + 1; i < arr.size(); i++)
+    {
+        if (arr[i] != 0)
+        {
+            swap(arr[i], arr[j]);
             j++;
         }
     }
-    return a;
+    return arr;
 }
 
 int main()
@@ -74,16 +87,18 @@ int main()
         cin>>a;
         arr.push_back(a);
     }
-    moveAllZeroToLast(arr);
+    vector<int> ans1 =  moveAllZeroToLast_1(arr);
     cout<<"Output :"<<endl;
-    for(int i=0;i<n;i++)
+    for(int i=0;i<ans1.size();i++)
     {
-        cout<<arr[i]<<" ";
+        cout<<ans1[i]<<" ";
     }
     cout<<endl;
-    vector<int> ans = moveAllZeros(n, arr);
-    for (auto &it : ans) {
-        cout << it << " ";
+    cout<<"Output :"<<endl;
+    vector<int> ans2 = moveAllZeroToLast_2(arr);
+    for(int i=0;i<ans2.size();i++)
+    {
+        cout<<ans2[i]<<" ";
     }
     cout<<endl;
     return 0;

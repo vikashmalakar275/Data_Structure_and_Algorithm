@@ -20,6 +20,8 @@ Explanation: There are two consecutive 1's in the array.
 #include <iostream>
 using namespace std;
 
+//Time Complexity: O(N) since the solution involves only a single pass.
+//Space Complexity: O(1) because no extra space is used.
 int countMaximumConsecutiveOne(vector<int> arr)
 {
     int count = 0;

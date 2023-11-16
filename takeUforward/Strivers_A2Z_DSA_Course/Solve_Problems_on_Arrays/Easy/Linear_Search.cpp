@@ -17,6 +17,8 @@ Explanation: 5 is present in the 0th index
 #include <iostream>
 using namespace std;
 
+//Time Complexity: O(n), where n is the length of the array.
+//Space Complexity: O(1)
 int linearSearch(vector<int> arr, int search)
 {
     for(int i=0;i<arr.size();i++)
