@@ -37,6 +37,7 @@ bool isSorted_1(vector<int> arr, int n) {
   return true;
 }
 
+
 //Optimal Solution
 //TC = O(n)
 //TC = O(1)
