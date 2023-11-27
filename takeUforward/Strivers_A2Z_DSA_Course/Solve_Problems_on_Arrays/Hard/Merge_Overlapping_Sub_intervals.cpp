@@ -24,6 +24,8 @@ Explanation: Since intervals [1,4] and [4,5] are overlapping we can merge them t
 #include <iostream>
 using namespace std;
 
+vector
+
 int main()
 {
     int row,column;
