@@ -43,7 +43,22 @@ void repeatingAndMissing_1(vector<int> arr)
 
 void repeatingAndMissing_2(vector<int> arr)
 {
-
+    vector<int> hashT(arr.size()+1,0);
+    for(int i=0;i<arr.size();i++)
+    {
+        hashT[arr[i]]++;
+    }
+    for(int i=1;i<=arr.size();i++)
+    {
+        if(hashT[i]==2)
+        {
+            cout<<"Repeating element is = "<<i<<endl;
+        }
+        if(hashT[i]==0)
+        {
+            cout<<"Mising element is = "<<i<<endl;
+        }   
+    }
 }
 
 int main()
@@ -60,4 +75,5 @@ int main()
         arr.push_back(a);
     }
     repeatingAndMissing_1(arr);
+    repeatingAndMissing_2(arr);
 }
