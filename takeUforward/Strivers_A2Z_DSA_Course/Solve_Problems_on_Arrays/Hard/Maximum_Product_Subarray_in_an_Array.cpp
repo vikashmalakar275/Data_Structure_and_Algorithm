@@ -84,10 +84,22 @@ int max_product_subarray_3(vector<int> arr)
     return ans;
 }
 
+//Optimal approach 2
+//Time Complexity: O(N)
+//Reason: A single iteration is used.
+//Space Complexity: O(1)
+//Reason: No extra data structure is used for computation
 int max_product_subarray_4(vector<int> arr)
 {
-    int prod = 1;
-    return prod;
+    int prod1 = arr[0],prod2 = arr[0],result = arr[0];
+    for(int i=1;i<arr.size();i++) 
+    {
+        int temp = max({arr[i],prod1*arr[i],prod2*arr[i]});
+        prod2 = min({arr[i],prod1*arr[i],prod2*arr[i]});
+        prod1 = temp;
+        result = max(result,prod1);
+    }
+    return result;
 }
 
 int main()
