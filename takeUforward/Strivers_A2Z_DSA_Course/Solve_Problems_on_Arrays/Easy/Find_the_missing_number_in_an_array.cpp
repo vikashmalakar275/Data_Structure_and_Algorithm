@@ -77,7 +77,8 @@ int missingNumber_3(vector<int> &arr,int n)
 //Optimal Approach2
 //TC = O(n)
 //SC = O(1)
-int missingNumber_4(vector<int> &arr, int n) {
+int missingNumber_4(vector<int> &arr, int n)
+{
 
     int xor1 = 0, xor2 = 0;
 
