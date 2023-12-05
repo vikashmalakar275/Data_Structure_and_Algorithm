@@ -1,19 +1,20 @@
 /*
-Problem Statement: Given a sorted array of N integers and an integer x, write a program to find the lower bound of x.
+Problem Statement: Given a sorted array of N integers and an integer x, write a program to find the upper bound of x.
 
 Pre-requisite: Binary Search algorithm
 
 Examples
 Example 1:
 Input Format: N = 4, arr[] = {1,2,2,3}, x = 2
-Result: 1
-Explanation: Index 1 is the smallest index such that arr[1] >= x.
+Result: 3
+Explanation: Index 3 is the smallest index such that arr[3] > x.
 
 Example 2:
-Input Format: N = 5, arr[] = {3,5,8,15,19}, x = 9
-Result: 3
-Explanation: Index 3 is the smallest index such that arr[3] >= x.
+Input Format: N = 6, arr[] = {3,5,8,9,15,19}, x = 9
+Result: 4
+Explanation: Index 4 is the smallest index such that arr[4] > x.
 */
+
 #include <iostream>
 using namespace std;
 
@@ -21,11 +22,11 @@ using namespace std;
 //Time Complexity: O(N), where N = size of the given array.
 //Reason: In the worst case, we have to travel the whole array. This is basically the time complexity of the linear search algorithm.
 //Space Complexity: O(1) as we are using no extra space.
-int Lower_Bound_1(vector<int> arr,int target)
+int Upper_Bound_1(vector<int> arr,int target)
 {
     for(int i=0;i<arr.size();i++)
     {
-        if(arr[i]>=target)
+        if(arr[i]<=target)
         {
             return i;
         }
@@ -37,7 +38,7 @@ int Lower_Bound_1(vector<int> arr,int target)
 //Time Complexity: O(logN), where N = size of the given array.
 //Reason: We are basically using the Binary Search algorithm.
 //Space Complexity: O(1) as we are using no extra space.
-int Lower_Bound_2(vector<int> arr,int target)
+int Upper_Bound_2(vector<int> arr,int target)
 {
     int low = 0;
     int high = arr.size() - 1;
@@ -45,7 +46,7 @@ int Lower_Bound_2(vector<int> arr,int target)
     while (low<=high)
     {
         int mid = (low + high) / 2;
-        if(arr[mid]>=target)
+        if(arr[mid]<=target)
         {
             ans = mid;
             high = mid - 1;
@@ -56,13 +57,6 @@ int Lower_Bound_2(vector<int> arr,int target)
         }
     }
     return ans;
-}
-
-//By using inbuilt function;
-int Lower_Bound_3(vector<int> arr,int x)
-{
-    int lb = lower_bound(arr.begin(),arr.end(),x) - arr.begin();
-    return lb;
 }
 
 
@@ -82,7 +76,6 @@ int main()
     int search;
     cout<<"Enter the searched element :"<<endl;
     cin>>search;
-    cout <<"Target element present at index = "<<Lower_Bound_1(arr,search)<<endl;
-    cout <<"Target element present at index = "<<Lower_Bound_2(arr,search)<<endl;
-    cout <<"Target element present at index = "<<Lower_Bound_3(arr,search)<<endl;
+    cout <<"Target element present at index = "<<Upper_Bound_1(arr,search)<<endl;
+    cout <<"Target element present at index = "<<Upper_Bound_2(arr,search)<<endl;
 }
