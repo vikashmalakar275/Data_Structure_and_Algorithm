@@ -82,7 +82,7 @@ int main()
     int search;
     cout<<"Enter the searched element :"<<endl;
     cin>>search;
-    cout <<"Target element present at index = "<<Lower_Bound_1(arr,search)<<endl;
-    cout <<"Target element present at index = "<<Lower_Bound_2(arr,search)<<endl;
-    cout <<"Target element present at index = "<<Lower_Bound_3(arr,search)<<endl;
+    cout <<"smallest index such that arr[i] >= x => "<<Lower_Bound_1(arr,search)<<endl;
+    cout <<"smallest index such that arr[i] >= x => "<<Lower_Bound_2(arr,search)<<endl;
+    cout <<"smallest index such that arr[i] >= x => "<<Lower_Bound_3(arr,search)<<endl;
 }
