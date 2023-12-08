@@ -33,6 +33,8 @@ int last_occurence_1(vector<int> arr, int x)
     return ans;
 }
 
+//Time Complexity: O(log n)
+//Space Complexity: O(1)
 int last_occurence_2(vector<int> arr, int x)
 {
     int ans = -1;
