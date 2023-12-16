@@ -68,7 +68,8 @@ int minElement_2(vector<int> arr)
 {
     int low = 0, high = arr.size() - 1;
     int ans = INT_MAX;
-    while (low <= high) {
+    while (low <= high) 
+    {
         int mid = (low + high) / 2;
         if (arr[low] <= arr[high]) 
         {
