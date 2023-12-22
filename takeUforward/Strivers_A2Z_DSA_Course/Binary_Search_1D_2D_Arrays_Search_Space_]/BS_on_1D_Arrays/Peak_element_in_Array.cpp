@@ -30,6 +30,9 @@ Explanation: In this example, there is only 1 peak that is at the index 0.
 #include <iostream>
 using namespace std;
 
+//Time Complexity: O(N), N = size of the given array.
+//Reason: We are traversing the entire array.
+//Space Complexity: O(1) as we are not using any extra space.
 int peakElement_1(vector<int> arr)
 {
     for(int i=0;i<arr.size();i++)
