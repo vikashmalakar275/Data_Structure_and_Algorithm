@@ -19,24 +19,16 @@ using namespace std;
 //Time Complexity: O(M), M = the given number.
 //Reason: Since we are using linear search, we traverse the entire answer space.
 //Space Complexity: O(1) as we are not using any extra space.
-int func(int base, int exp) {
-    int ans = 1;
-    while (exp-- > 0) 
-    {
-        ans *= base;
-    }
-    return ans;
-}
 
 int nth_root_1(int n,int m)
 {
     for(int i=1;i<=m;i++)
     {
-        if(func(i,n) == m)
+        if(pow(i,n) == m)
         {
             return i;
         }
-        if(func(i,n) > m)
+        if(pow(i,n) > m)
         {
             break;
         }
@@ -56,11 +48,11 @@ int nth_root_2(int n,int m)
     while(low<=high)
     {
         int mid = (low+high)/2;
-        if(func(mid,n) == m)
+        if(pow(mid,n) == m)
         {
             return mid;
         }
-        else if(func(mid,n)>m)
+        else if(pow(mid,n)>m)
         {
             high = mid - 1;
         }
