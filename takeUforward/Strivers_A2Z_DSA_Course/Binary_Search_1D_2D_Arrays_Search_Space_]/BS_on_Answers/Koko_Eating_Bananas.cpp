@@ -57,6 +57,16 @@ int findmax(vector<int> arr)
     return maxElement;
 }
 
+int calculateTotalHours(vector<int> &v, int hourly) {
+    int totalH = 0;
+    int n = v.size();
+    //find total hours:
+    for (int i = 0; i < n; i++) {
+        totalH += ceil((double)(v[i]) / (double)(hourly));
+    }
+    return totalH;
+}
+
 //Time Complexity: O(max(a[]) * N), where max(a[]) is the maximum element in the array and N = size of the array.
 //Reason: We are running nested loops. The outer loop runs for max(a[]) times in the worst case and the inner loop runs for N times.
 //Space Complexity: O(1) as we are not using any extra space to solve this problem.
@@ -65,17 +75,36 @@ int min_banana_1(vector<int> arr, int h)
     int arr_max = findmax(arr);
     for(int i=1;i<=arr_max;i++)
     {
-        int total_hours = 0;
-        for(int j=0;j<arr.size();j++)
-        {
-            total_hours += ceil(arr[j]/i);
-        }
+        int total_hours = calculateTotalHours(arr,i);
         if(total_hours<=h)
         {
             return total_hours;
         }
     }
     return arr_max;
+}
+
+//Time Complexity: O(N * log(max(a[]))), where max(a[]) is the maximum element in the array and N = size of the array.
+//Reason: We are applying Binary search for the range [1, max(a[])], and for every value of ‘mid’, we are traversing the entire array inside the function named calculateTotalHours().
+//Space Complexity: O(1) as we are not using any extra space to solve this problem.
+int min_banana_2(vector<int> arr, int h)
+{
+    int low = 1;
+    int high = findmax(arr);
+    while(low <= high)
+    {
+        int mid = (low+high)/2;
+        int total_hours = calculateTotalHours(arr,mid);
+        if(total_hours <= h)
+        {
+            high = mid -1;
+        }
+        else
+        {
+            low = mid +1;
+        }
+    }
+    return low;
 }
 
 int main()
@@ -94,6 +123,6 @@ int main()
     int h;
     cout<<"Enter the Hours :"<<endl;
     cin>>h;
-    cout<<"reaching"<<endl;
     cout<<"minimum number of banana = "<<min_banana_1(arr,h)<<endl;
+    cout<<"minimum number of banana = "<<min_banana_2(arr,h)<<endl;
 }
