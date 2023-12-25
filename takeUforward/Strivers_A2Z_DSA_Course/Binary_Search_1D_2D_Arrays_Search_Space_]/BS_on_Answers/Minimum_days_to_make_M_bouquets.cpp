@@ -58,11 +58,78 @@ Note: We actually pass a particular day as a parameter to the possible() functio
 */
 
 #include <iostream>
+typedef long long ll;
 using namespace std;
 
+bool possible(vector<int> arr,int day, int m,int k)
+{
+    int cnt = 0;
+    int noOfB = 0;
+    for(int i=0;i<arr.size();i++)
+    {
+        if(arr[i]<=day)
+        {
+            cnt++;
+        }
+        else
+        {
+            noOfB += (cnt/k);
+            cnt = 0;
+        }
+    }
+    noOfB += (cnt/k);
+    return noOfB >= m;
+}
+
+//Time Complexity: O((max(arr[])-min(arr[])+1) * N), where {max(arr[]) -> maximum element of the array, min(arr[]) -> minimum element of the array, N = size of the array}.
+//Reason: We are running a loop to check our answers that are in the range of [min(arr[]), max(arr[])]. For every possible answer, we will call the possible() function. Inside the possible() function, we are traversing the entire array, which results in O(N).
+//Space Complexity: O(1) as we are not using any extra space to solve this problem.
 int min_days_to_make_M_bouquets_1(vector<int> arr,int m,int k)
 {
-    
+    long long bou = m * 1ll * k * 1ll;
+    if(arr.size()<bou)
+    {
+        return -1;
+    }
+    int mini = INT_MAX;
+    int maxi = INT_MIN;
+    for(int i=0;i<arr.size();i++)
+    {
+        mini = min(mini,arr[i]);
+        maxi = max(maxi,arr[i]);
+    }
+    for(int i=mini;i<maxi;i++)
+    {
+        if(possible(arr,i,m,k))
+        {
+            return i;
+        }
+    }
+    return -1;   
+}
+
+//Time Complexity: O(log(max(arr[])-min(arr[])+1) * N), where {max(arr[]) -> maximum element of the array, min(arr[]) -> minimum element of the array, N = size of the array}.
+//Reason: We are applying binary search on our answers that are in the range of [min(arr[]), max(arr[])]. For every possible answer ‘mid’, we will call the possible() function. Inside the possible() function, we are traversing the entire array, which results in O(N).
+//Space Complexity: O(1) as we are not using any extra space to solve this problem.
+int min_days_to_make_M_bouquets_2(vector<int> arr,int m,int k)
+{
+    int bou = m*k;
+    int n = arr.size();
+    if (bou > n) return -1;
+    int mini = INT_MAX, maxi = INT_MIN;
+    for (int i = 0; i < n; i++) {
+        mini = min(mini, arr[i]);
+        maxi = max(maxi, arr[i]);
+    }
+    int low = mini, high = maxi;
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        if (possible(arr, mid, m, k)) {
+            high = mid - 1;
+        }
+        else low = mid + 1;
+    }
+    return low;   
 }
 
 int main()
@@ -70,5 +137,20 @@ int main()
     int n;
     cout<<"Enter the Size :"<<endl;
     cin>>n;
+    cout<<"Enter the element of array :"<<endl;
+    vector<int> arr;
+    for(int i=0;i<n;i++)
+    {
+        int a;
+        cin>>a;
+        arr.push_back(a);
+    }
+    int m,k;
+    cout<<"Enter the number of bouque (m):"<<endl;
+    cin>>m;
+    cout<<"Enter the number of roses (k):"<<endl;
+    cin>>k;
 
+    cout<<"Minimum Number of days required = "<<min_days_to_make_M_bouquets_1(arr,m,k)<<endl;
+    cout<<"Minimum Number of days required = "<<min_days_to_make_M_bouquets_2(arr,m,k)<<endl;
 }
