@@ -5,7 +5,7 @@ Find out the least-weight capacity so that you can ship all the packages within 
 
 Examples
 Example 1:
-Input Format: N = 5, weights[] = {5,4,5,2,3,4,5,6}, d = 5
+Input Format: N = 8, weights[] = {5,4,5,2,3,4,5,6}, d = 5
 Result: 9
 Explanation: If the ship capacity is 9, the shipment will be done in the following manner:
 Day         Weights            Total
@@ -50,8 +50,46 @@ findDays(weights[], cap):
 #include <iostream>
 using namespace std;
 
+pair<int,int> get_max_sum(vector<int> arr)
+{
+    int maxi = arr[0];
+    int sum = 0;
+    for(int i=0;i<arr.size();i++)
+    {
+        maxi = max(maxi,arr[i]);
+        sum += arr[i];
+    }
+    return make_pair(maxi,sum);
+}
+
+int daysreq(vector<int> weight,int cap)
+{
+    int days = 1,load = 0;
+    for(int i=0;i<weight.size();i++)
+    {
+        if(load+weight[i]>cap)
+        {
+            days += 1;
+            load = weight[i];
+        }
+        else
+        {
+            load += weight[i];
+        }
+    }
+    return days;
+}
+
 int capacity(vector<int> arr,int day)
 {
+    for(int i=get_max_sum(arr).first;i<=get_max_sum(arr).second;i++)
+    {
+        int daysre = daysreq(arr,i);
+        if(daysre<day)
+        {
+            return daysre;
+        }
+    }
     return -1;
 }
 
@@ -68,7 +106,8 @@ int main()
         cin>>a;
         arr.push_back(a);
     }
-    int limit;
+    int day;
     cout<<"Enter the days :"<<endl;
-    cin>>limit;
+    cin>>day;
+    cout<<"Least Capacity = "<<capacity(arr,day)<<endl;
 }
