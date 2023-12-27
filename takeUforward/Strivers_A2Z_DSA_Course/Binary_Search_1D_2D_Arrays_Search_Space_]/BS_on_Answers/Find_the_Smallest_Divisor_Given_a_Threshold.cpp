@@ -29,3 +29,54 @@ Maximum possible divisor: If we observe, we can conclude the maximum element in 
 With these observations, we can surely say that our answer will lie in the range 
 [1, max(arr[])].
 */
+#include <iostream>
+using namespace std;
+
+int findmax(vector<int> arr)
+{
+    int maxElement = INT_MIN;
+    for(int i=0;i<arr.size();i++)
+    {
+        maxElement = max(maxElement,arr[i]);
+    }
+    return maxElement;
+}
+
+//Time Complexity: O(max(arr[])*N), where max(arr[]) = maximum element in the array, N = size of the array.
+//Reason: We are using nested loops. The outer loop runs from 1 to max(arr[]) and the inner loop runs for N times.
+//Space Complexity: O(1) as we are not using any extra space to solve this problem.
+int get_smaller_divisor_1(vector<int> arr, int limit)
+{
+    for(int i=1;i<=findmax(arr);i++)
+    {
+        int sum = 0;
+        for(int j=0;j<arr.size();j++)
+        {
+            sum += ceil((double)arr[j]/(double)i);
+        }
+        if(sum<=limit)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int main()
+{
+    int n;
+    cout<<"Enter the Size of Array :"<<endl;
+    cin>>n;
+    vector<int> arr;
+    cout<<"Enter the element of Array :"<<endl;
+    for(int i=0;i<n;i++)
+    {
+        int a;
+        cin>>a;
+        arr.push_back(a);
+    }
+    int limit;
+    cout<<"Enter the limit :"<<endl;
+    cin>>limit;
+    cout<<"Smallest Divisor = "<<get_smaller_divisor_1(arr,limit)<<endl;
+}
