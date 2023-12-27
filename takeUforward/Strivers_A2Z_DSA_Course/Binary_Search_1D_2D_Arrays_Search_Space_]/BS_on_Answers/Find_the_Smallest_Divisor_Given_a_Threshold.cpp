@@ -42,6 +42,38 @@ int findmax(vector<int> arr)
     return maxElement;
 }
 
+//Time Complexity: O(log(max(arr[]))*N), where max(arr[]) = maximum element in the array, N = size of the array.
+//Reason: We are applying binary search on our answers that are in the range of [1, max(arr[])]. For every possible divisor ‘mid’, we call the sumByD() function. Inside that function, we are traversing the entire array, which results in O(N).
+//Space Complexity: O(1) as we are not using any extra space to solve this problem.
+int get_smaller_divisor_2(vector<int> arr,int limit)
+{
+    if(arr.size()>limit)
+    {
+        return -1;
+    }
+    int low = 1;
+    int high = findmax(arr);
+    while (low<=high)
+    {
+        int mid = (low+high) / 2;
+        int sum = 0;
+        for(int j=0;j<arr.size();j++)
+        {
+            sum += ceil((double)arr[j]/(double)mid);
+        }
+        if(sum <= limit)
+        {
+            high = mid - 1;
+        }
+        else
+        {
+            low = mid + 1;
+        }
+    }
+    return low;
+    
+}
+
 //Time Complexity: O(max(arr[])*N), where max(arr[]) = maximum element in the array, N = size of the array.
 //Reason: We are using nested loops. The outer loop runs from 1 to max(arr[]) and the inner loop runs for N times.
 //Space Complexity: O(1) as we are not using any extra space to solve this problem.
@@ -79,4 +111,5 @@ int main()
     cout<<"Enter the limit :"<<endl;
     cin>>limit;
     cout<<"Smallest Divisor = "<<get_smaller_divisor_1(arr,limit)<<endl;
+    cout<<"Smallest Divisor = "<<get_smaller_divisor_2(arr,limit)<<endl;
 }
