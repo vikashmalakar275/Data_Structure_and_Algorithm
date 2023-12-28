@@ -80,6 +80,9 @@ int daysreq(vector<int> weight,int cap)
     return days;
 }
 
+//Time Complexity: O(N * (sum(weights[]) – max(weights[]) + 1)), where sum(weights[]) = summation of all the weights, max(weights[]) = maximum of all the weights, N = size of the weights array.
+//Reason: We are using a loop from max(weights[]) to sum(weights[]) to check all possible weights. Inside the loop, we are calling findDays() function for each weight. Now, inside the findDays() function, we are using a loop that runs for N times.
+//Space Complexity: O(1) as we are not using any extra space to solve this problem.
 int leastCapacity(vector<int> arr,int day)
 {
     int maxi = get_max_sum(arr).first;
@@ -92,6 +95,28 @@ int leastCapacity(vector<int> arr,int day)
         }
     }
     return -1;
+}
+
+//Time Complexity: O(N * log(sum(weights[]) – max(weights[]) + 1)), where sum(weights[]) = summation of all the weights, max(weights[]) = maximum of all the weights, N = size of the weights array.
+//Reason: We are applying binary search on the range [max(weights[]), sum(weights[])]. For every possible answer ‘mid’, we are calling findDays() function. Now, inside the findDays() function, we are using a loop that runs for N times.
+//Space Complexity: O(1) as we are not using any extra space to solve this problem.
+int leastCapacity_1(vector<int> arr,int day)
+{
+    int low = get_max_sum(arr).first;
+    int high = get_max_sum(arr).second;
+    while(low<=high)
+    {
+        int mid = (low+high)/2;
+        if(daysreq(arr,mid)<=day)
+        {
+            high = mid - 1;
+        }
+        else
+        {
+            low = mid + 1;
+        }
+    }
+    return low;
 }
 
 int main()
@@ -111,4 +136,5 @@ int main()
     cout<<"Enter the days :"<<endl;
     cin>>day;
     cout<<"Least Capacity = "<<leastCapacity(arr,day)<<endl;
+    cout<<"Least Capacity = "<<leastCapacity_1(arr,day)<<endl;
 }
