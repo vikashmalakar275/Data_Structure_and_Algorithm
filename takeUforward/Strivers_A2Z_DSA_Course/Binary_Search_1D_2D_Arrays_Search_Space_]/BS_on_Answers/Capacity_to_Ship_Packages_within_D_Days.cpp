@@ -80,14 +80,15 @@ int daysreq(vector<int> weight,int cap)
     return days;
 }
 
-int capacity(vector<int> arr,int day)
+int leastCapacity(vector<int> arr,int day)
 {
-    for(int i=get_max_sum(arr).first;i<=get_max_sum(arr).second;i++)
+    int maxi = get_max_sum(arr).first;
+    int sum = get_max_sum(arr).second;
+    for(int i=maxi;i<=sum;i++)
     {
-        int daysre = daysreq(arr,i);
-        if(daysre<day)
+        if(daysreq(arr,i)<=day)
         {
-            return daysre;
+            return i;
         }
     }
     return -1;
@@ -109,5 +110,5 @@ int main()
     int day;
     cout<<"Enter the days :"<<endl;
     cin>>day;
-    cout<<"Least Capacity = "<<capacity(arr,day)<<endl;
+    cout<<"Least Capacity = "<<leastCapacity(arr,day)<<endl;
 }
