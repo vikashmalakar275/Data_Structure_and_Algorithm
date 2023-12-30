@@ -63,3 +63,90 @@ If stalls[i] - ‘last’ >= dist: This means the current stall is at least ‘d
 If cntCows >= k: This means we have already placed k cows with maintaining the minimum distance ‘dist’. So, we will return true from this step.
 If we are outside the loop, we cannot place k cows with a minimum distance of ‘dist’. So, we will return false.
 */
+
+#include <iostream>
+using namespace std;
+
+bool canWePlace(vector<int> stalls,int dis,int cow)
+{
+    int countOfCow = 1;
+    int lastCow = stalls[0];
+    for(int i=1;i<stalls.size();i++)
+    {
+        if(stalls[i] - lastCow >= dis)
+        {
+            countOfCow++;
+            lastCow = stalls[i];
+        }
+    }
+    if(countOfCow>=cow)
+    {
+        return true;
+    }
+    return false;
+}
+
+//Time Complexity: O(NlogN) + O(N *(max(stalls[])-min(stalls[]))), where N = size of the array, max(stalls[]) = maximum element in stalls[] array, min(stalls[]) = minimum element in stalls[] array.
+//Reason: O(NlogN) for sorting the array. We are using a loop from 1 to max(stalls[])-min(stalls[]) to check all possible distances. Inside the loop, we are calling canWePlace() function for each distance. Now, inside the canWePlace() function, we are using a loop that runs for N times.
+//Space Complexity: O(1) as we are not using any extra space to solve this problem.
+int maximumPossibleMinimumDistance_1(vector<int> stall, int cow)
+{
+    sort(stall.begin(),stall.end());
+    int ran = stall[stall.size()-1] - stall[0];
+
+    for(int i = 1;i<=ran;i++)
+    {
+        if(canWePlace(stall,i,cow))
+        {
+            continue;
+        }
+        else
+        {
+            return i-1;
+        }
+    }
+    return -1;
+}
+
+//Time Complexity: O(NlogN) + O(N * log(max(stalls[])-min(stalls[]))), where N = size of the array, max(stalls[]) = maximum element in stalls[] array, min(stalls[]) = minimum element in stalls[] array.
+//Reason: O(NlogN) for sorting the array. We are applying binary search on [1, max(stalls[])-min(stalls[])]. Inside the loop, we are calling canWePlace() function for each distance, ‘mid’. Now, inside the canWePlace() function, we are using a loop that runs for N times.
+//Space Complexity: O(1) as we are not using any extra space to solve this problem.
+int maximumPossibleMinimumDistance_2(vector<int> stall,int cow)
+{
+    sort(stall.begin(),stall.end());
+    int low = 0;
+    int high = stall[stall.size()-1] - stall[0];
+    while (low<=high)
+    {
+        int mid = (low+high)/2;
+        if(canWePlace(stall,mid,cow))
+        {
+            low = mid + 1;
+        }
+        else
+        {
+            high = mid - 1;
+        }
+    }
+    return high;
+}
+
+int main()
+{
+    int n;
+    cout<<"Enter the Size of Array :"<<endl;
+    cin>>n;
+    vector<int> arr;
+    cout<<"Enter the element of Array :"<<endl;
+    for(int i=0;i<n;i++)
+    {
+        int a;
+        cin>>a;
+        arr.push_back(a);
+    }
+    int cow;
+    cout<<"Enter the Number of Aggressive Cows :"<<endl;
+    cin>>cow;
+    cout<<"Maximun Possible Minimum Distance = "<<maximumPossibleMinimumDistance_1(arr,cow)<<endl;
+   cout<<"Maximun Possible Minimum Distance = "<<maximumPossibleMinimumDistance_2(arr,cow)<<endl;
+}
