@@ -63,3 +63,90 @@ countStudents(arr[], pages):
 
 Finally, we will return the value of ‘students’.
 */
+#include <iostream>
+#include <numeric>
+using namespace std;
+
+int countStudent(vector<int> book,int page)
+{
+    int student = 1;
+    int pagesOfStudent = 0;
+    for(int i=0;i<book.size();i++)
+    {
+        if(pagesOfStudent + book[i]<=page)
+        {
+            pagesOfStudent += book[i];
+        }
+        else
+        {
+            student++;
+            pagesOfStudent = book[i];
+        }
+    }
+    return student;
+}
+
+//Time Complexity: O(N * (sum(arr[])-max(arr[])+1)), where N = size of the array, sum(arr[]) = sum of all array elements, max(arr[]) = maximum of all array elements.
+//Reason: We are using a loop from max(arr[]) to sum(arr[]) to check all possible numbers of pages. Inside the loop, we are calling the countStudents() function for each number. Now, inside the countStudents() function, we are using a loop that runs for N times.
+//Space Complexity:  O(1) as we are not using any extra space to solve this problem.
+int allocateMinimumNumberOfPages_1(vector<int> book,int student)
+{
+    int maxi = *max_element(book.begin(),book.end());
+    int sum = accumulate(book.begin(),book.end(),0);
+    for(int page=maxi;page<=sum;page++)
+    {
+        int count_student = countStudent(book,page);
+        if(count_student==student)
+        {
+            return page;
+        }
+    }
+    return -1;
+}
+
+//Time Complexity: O(N * log(sum(arr[])-max(arr[])+1)), where N = size of the array, sum(arr[]) = sum of all array elements, max(arr[]) = maximum of all array elements.
+//Reason: We are applying binary search on [max(arr[]), sum(arr[])]. Inside the loop, we are calling the countStudents() function for the value of ‘mid’. Now, inside the countStudents() function, we are using a loop that runs for N times.
+//Space Complexity:  O(1) as we are not using any extra space to solve this problem.
+int allocateMinimumNumberOfPages_2(vector<int> book,int student)
+{
+    if(student>book.size())
+    {
+        return -1;
+    }
+    int low = *max_element(book.begin(),book.end());
+    int high = accumulate(book.begin(),book.end(),0);
+    while(low<=high)
+    {
+        int mid = (low+high)/2;
+        int count_student = countStudent(book,mid);
+        if(count_student > student)
+        {
+            low = mid + 1;
+        }
+        else
+        {
+            high = mid - 1;
+        }
+    }
+    return low;
+}
+
+int main()
+{
+    int n;
+    cout<<"Enter the Size of Array :"<<endl;
+    cin>>n;
+    vector<int> arr;
+    cout<<"Enter the element of Array :"<<endl;
+    for(int i=0;i<n;i++)
+    {
+        int a;
+        cin>>a;
+        arr.push_back(a);
+    }
+    int student;
+    cout<<"Enter the Number of Student :"<<endl;
+    cin>>student;
+    cout<<"maximum number of pages assigned to a student is minimum = "<<allocateMinimumNumberOfPages_1(arr,student)<<endl;
+    cout<<"maximum number of pages assigned to a student is minimum = "<<allocateMinimumNumberOfPages_2(arr,student)<<endl;
+}
