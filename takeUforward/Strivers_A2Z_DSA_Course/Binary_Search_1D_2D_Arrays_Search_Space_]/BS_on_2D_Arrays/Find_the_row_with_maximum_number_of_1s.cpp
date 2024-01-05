@@ -27,6 +27,9 @@ Explanation:  The matrix does not contain any 1. So, -1 is the answer.
 #include <iostream>
 using namespace std;
 
+//Time Complexity: O(n X m), where n = given row number, m = given column number.
+//Reason: We are using nested loops running for n and m times respectively.
+//Space Complexity: O(1) as we are not using any extra space.
 int max_numbers_of_ones_1(vector<vector<int> > &arr,int row,int column)
 {
     int max_No_1s = 0;
@@ -50,6 +53,9 @@ int max_numbers_of_ones_1(vector<vector<int> > &arr,int row,int column)
     return result_row;
 }
 
+//Time Complexity: O(n X logm), where n = given row number, m = given column number.
+//Reason: We are using a loop running for n times to traverse the rows. Then we are applying binary search on each row with m columns.
+//Space Complexity: O(1) as we are not using any extra space.
 int Lower_Bound(vector<int> arr,int n,int target)
 {
     int low = 0;
