@@ -50,6 +50,43 @@ int max_numbers_of_ones_1(vector<vector<int> > &arr,int row,int column)
     return result_row;
 }
 
+int Lower_Bound(vector<int> arr,int n,int target)
+{
+    int low = 0;
+    int high = n - 1;
+    int ans = n;
+    while (low<=high)
+    {
+        int mid = (low + high) / 2;
+        if(arr[mid]>=target)
+        {
+            ans = mid;
+            high = mid - 1;
+        }
+        else
+        {
+            low = mid + 1;
+        }
+    }
+    return ans;
+}
+int max_numbers_of_ones_2(vector<vector<int> > &arr,int row,int column)
+{
+    int max_No_1s = 0;
+    int result_row = -1;
+    for(int i=0;i<row;i++)
+    {
+        int ones_count = column - Lower_Bound(arr[i],column,1); 
+        
+        if(ones_count>max_No_1s)
+        {
+            max_No_1s = ones_count;
+            result_row = i;
+        }
+    }
+    return result_row;
+}
+
 int main()
 {
     int n,m;
@@ -68,5 +105,6 @@ int main()
         }
     }
     cout<<"Maximum Number of 1's Present at Row index = "<<max_numbers_of_ones_1(arr,n,m)<<endl;
+    cout<<"Maximum Number of 1's Present at Row index = "<<max_numbers_of_ones_2(arr,n,m)<<endl;
     return 0;
 }
