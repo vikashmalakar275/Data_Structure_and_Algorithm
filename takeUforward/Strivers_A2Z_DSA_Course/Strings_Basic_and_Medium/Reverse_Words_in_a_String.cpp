@@ -15,6 +15,8 @@ Output: “decent is This”
 #include <stack>
 using namespace std;
 
+//Time Complexity: O(N), Traversing the entire string
+//Space Complexity: O(N), Stack and ans variable
 string reverse_word_1(string str)
 {
     str += " ";
@@ -41,6 +43,9 @@ string reverse_word_1(string str)
     ans += st.top();
     return ans;
 }
+
+//Time Complexity: O(N), N~length of string
+//Space Complexity: O(1), Constant Space
 string reverse_word_2(string str)
 {
     int left = 0;
