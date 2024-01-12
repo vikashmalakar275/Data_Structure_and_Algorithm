@@ -26,30 +26,35 @@ strs[i] consists of only lowercase English letters.
 #include <iostream>
 using namespace std;
 
-string longestCommonPrefix(vector<string>& S) 
+string longestCommonPrefix(vector<string>& str) 
 {
-    if (S.size() == 0) return "";
-    std::string prefix = S[0];
-    for(int i = 1; i < S.size(); ++i)
+    string ans;
+    for(int i=0;i<str.size();i++)
     {
-        std::string s = S[i];
-        if (s.size() == 0 || prefix == "") return "";
-        prefix = prefix.substr(0, std::min(prefix.size(), s.size()) );    
-        for(int k = 0; k < s.size() && k < prefix.size(); ++k)
+        char currentChar = str[0][i];
+        for(int j=1;j<str.size();j++)
         {
-            if (s[k] != prefix[k])
+            if(i>=str[j].size() || str[j][i] != currentChar)
             {
-                prefix = prefix.substr(0, k);
-                break;
+                return str[0].substr(0,i);
             }
         }
     }
-    return prefix;
+    return str[0];
 }
 
 int main()
 {
-    vector<string> s = {"flow", "flower", "flight"};
-    cout << longestCommonPrefix(s) << endl;
-    return 0;
+    int n;
+    cout<<"Enter the size of Array :"<<endl;
+    cin>>n;
+    vector<string> str;
+    cout<<"Enter the element in array :"<<endl;
+    for(int i=0;i<n;i++)
+    {
+        string s;
+        cin>>s;
+        str.push_back(s);
+    }
+    cout<<"Longest Common Prefix = "<<longestCommonPrefix(str)<<endl;
 }
