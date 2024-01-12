@@ -43,6 +43,21 @@ string longestCommonPrefix(vector<string>& str)
     return str[0];
 }
 
+string longestCommonPrefix_1(vector<std::string>& strs)
+{
+    sort(strs.begin(), strs.end());
+    string& first = strs.front();
+    string& last = strs.back();
+    int commonLen = 0;
+    int minLen = min(first.length(), last.length());
+    while (commonLen < minLen && first[commonLen] == last[commonLen]) 
+    {
+        ++commonLen;
+    }
+
+    return first.substr(0, commonLen);
+}
+
 int main()
 {
     int n;
@@ -57,4 +72,5 @@ int main()
         str.push_back(s);
     }
     cout<<"Longest Common Prefix = "<<longestCommonPrefix(str)<<endl;
+    cout<<"Longest Common Prefix = "<<longestCommonPrefix_1(str)<<endl;
 }
