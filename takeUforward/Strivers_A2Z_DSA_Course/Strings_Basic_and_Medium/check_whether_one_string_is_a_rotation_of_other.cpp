@@ -11,6 +11,7 @@ Output: Strings are not rotations of each other
 */
 
 #include <iostream>
+#include <queue>
 #include <algorithm>
 using namespace std;
 
@@ -64,6 +65,38 @@ string check_whether_string_rotation_of_other(string s1,string s2)
   return "Strings are not rotations of each other";
 }
 
+//Approach-2
+//Time Complexity: O(N1 * N2), where N1 and N2 are the lengths of the strings.
+//Auxiliary Space: O(N)
+string check_rotation(string s, string goal)
+{
+    if(s.size() != goal.size())
+    {
+      return "Strings are not rotations of each other";
+    }
+    queue<char> q1;
+    for(int i=0; i<s.size(); i++)
+    {
+      q1.push(s[i]);
+    }
+    queue<char> q2;
+    for (int i=0; i<goal.size(); i++)
+    {
+      q2.push(goal[i]);
+    }
+    int k = goal.size();
+    while (k--)
+    {
+      char ch = q2.front();
+      q2.pop();
+      q2.push(ch);
+      if (q2 == q1)
+      {
+        return "Strings are rotations of each other";
+      }
+    }
+    return "Strings are not rotations of each other";
+}
 
 int main()
 {
@@ -74,4 +107,5 @@ int main()
   cout<<"Enter the second string :"<<endl;
   getline(cin,str2);
   cout<<check_whether_string_rotation_of_other(str1,str2)<<endl;
+  cout<<check_rotation(str1,str2)<<endl;
 }
