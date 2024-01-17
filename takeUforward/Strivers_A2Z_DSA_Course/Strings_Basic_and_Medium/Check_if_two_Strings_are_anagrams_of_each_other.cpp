@@ -15,63 +15,57 @@ Explanation: Since the count of U and T  is not equal in both strings.
 */
 // C++ program for the above approach
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
-bool checkString(string& s1, string& s2, int indexFound,
-				int Size)
+//Time Complexity: O(nlogn) since sorting function requires nlogn iterations.
+//Space Complexity: O(1)
+string check_anagrams_1(string str1, string str2)
 {
-	for (int i = 0; i < Size; i++) {
-		// check whether the character is equal or not
-		if (s1[i] != s2[(indexFound + i) % Size])
-			return false;
-		// %Size keeps (indexFound+i) in bounds, since it
-		// ensures it's value is always less than Size
+	sort(str1.begin(),str1.end());
+	sort(str2.begin(),str2.end());
+	if(str1 == str2)
+	{
+		return "it is anagram.";
 	}
+	return "it is not anagram.";
+}
 
-	return true;
+//Time Complexity: O(n) where n is the length of string
+//Space Complexity: O(1) 
+string check_anagrams_2(string str1, string str2)
+{
+  if (str1.length() != str2.length())
+  {
+	return "it is not anagram.";
+  }
+  int freq[26] = {0};
+  for (int i = 0; i < str1.length(); i++)
+  {
+    freq[str1[i] - 'A']++;
+  }
+  for (int i = 0; i < str2.length(); i++)
+  {
+    freq[str2[i] - 'A']--;
+  }
+  for (int i = 0; i < 26; i++)
+  {
+    if (freq[i] != 0)
+	{
+		return "it is not anagram.";
+	}
+  }
+  return "it is anagram.";
 }
 
 int main()
 {
-
-	string s1 = "abcd";
-	string s2 = "cdab";
-
-	if (s1.length() != s2.length()) {
-		cout << "s2 is not a rotation on s1" << endl;
-	}
-	else {
-		// store occurrences of the first character of s1
-		vector<int> indexes;
-
-		int Size = s1.length();
-
-		char firstChar = s1[0];
-
-		for (int i = 0; i < Size; i++) {
-			if (s2[i] == firstChar) {
-				indexes.push_back(i);
-			}
-		}
-
-		bool isRotation = false;
-
-		// check if the strings are rotation of each other
-		// for every occurrence of firstChar in s2
-		for (int idx : indexes) {
-			isRotation = checkString(s1, s2, idx, Size);
-
-			if (isRotation)
-				break;
-		}
-
-		if (isRotation)
-			cout << "Strings are rotations of each other"
-				<< endl;
-		else
-			cout
-				<< "Strings are not rotations of each other"
-				<< endl;
-	}
-	return 0;
+	string str1;
+	cout<<"Enter the first string :"<<endl;
+	getline(cin,str1);
+	string str2;
+	cout<<"Enter the first string :"<<endl;
+	getline(cin,str2);
+	cout<<check_anagrams_1(str1,str2)<<endl;
+	cout<<check_anagrams_2(str1,str2)<<endl;
 }
