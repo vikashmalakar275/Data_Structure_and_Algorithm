@@ -43,11 +43,8 @@ Node* createNode(int data)
 }
 
 //Function to create a Linked List
-Node *createLinkedList(Node* head)
+Node *createLinkedList(Node* head,int size)
 {
-    cout<<"Enter the size of the newly created linked list."<<endl;
-    int size;
-    cin>>size;
     while(size-->0)
     {
         Node* new_node = new Node;
@@ -69,6 +66,45 @@ Node *createLinkedList(Node* head)
         }
     }
     return head;
+}
+
+//Function to create a cycle
+void createCycle(Node* &head,int pos) {
+    Node* ptr = head;
+    Node* temp = head;
+    int cnt = 1;
+    while(temp->next != NULL) 
+    {
+        if(cnt != pos) 
+        {
+            ++cnt;
+            ptr = ptr->next;
+        } 
+        temp = temp->next;
+    }
+    temp->next = ptr;
+}
+
+// Function to display the linked list
+void displayLinkedList(Node* head,int size) 
+{
+    int count = 0;
+    Node* temp = head;
+    while (temp != nullptr) 
+    {
+        cout << temp->data << " -> ";
+        temp = temp->next;
+        count++;
+        if(count == (size+1))
+        {
+            break;
+        }
+    }
+    if( temp == nullptr)
+    {
+        cout << "nullptr" << endl;
+    }
+    cout<<endl;
 }
 
 //Time Complexity: O(N * 2 * log(N) )The algorithm traverses the linked list once, performing hashmap insertions and searches in the while loop for each node. The insertion and search operations in the unordered_map have a worst-case time complexity of O(log(N)). As the loop iterates through N nodes, the total time complexity is determined by the product of the traversal (O(N)) and the average-case complexity of the hashmap operations (insert and search), resulting in O(N * 2 * log(N)). 
@@ -111,24 +147,18 @@ bool detectCycle(Node* head)
 
 int main() 
 {
+    int size;
     Node* head = nullptr;
-    Node* Node1 = new Node();
-    Node1 = createNode(1);
-    head = Node1;
-
-    Node* Node2 = new Node();
-    Node2 = createNode(2);
-
-    Node* Node3 = new Node();
-    Node3 = createNode(3);
-
-    Node* Node4 = new Node();
-    Node4 = createNode(4);
-
-    Node* Node5 = new Node();
-    Node5 = createNode(5);
-
-    Node5->next = Node3;
+    cout<<"Create a Linked List:"<<endl;
+    cout<<"Enter the size of the newly created linked list."<<endl;
+    cin>>size;
+    head = createLinkedList(head,size);
+    cout<<"Linked List After creation :"<<endl;
+    displayLinkedList(head,size);
+    cout<<"Creare Cycle in Linked List :"<<endl;
+    createCycle(head,3);
+    cout<<"Linked List After Cycle creation :"<<endl;
+    displayLinkedList(head,size);
 
     if(detectLoop(head) && detectCycle(head))
     {
@@ -140,4 +170,3 @@ int main()
     }
     return 0;
 }
-

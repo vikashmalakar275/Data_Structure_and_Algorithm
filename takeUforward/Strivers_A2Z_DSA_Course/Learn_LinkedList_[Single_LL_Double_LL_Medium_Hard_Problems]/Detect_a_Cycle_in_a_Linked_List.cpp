@@ -161,10 +161,10 @@ int main()
     head = createLinkedList(head,size);
     cout<<"Linked List After creation :"<<endl;
     displayLinkedList(head,size);
-    // cout<<"Creare Cycle in Linked List :"<<endl;
-    // createCycle(head,3);
-    // cout<<"Linked List After Cycle creation :"<<endl;
-    // displayLinkedList(head,size);
+    cout<<"Creare Cycle in Linked List :"<<endl;
+    createCycle(head,3);
+    cout<<"Linked List After Cycle creation :"<<endl;
+    displayLinkedList(head,size);
 
     if(detectLoop(head) && detectCycle(head))
     {
