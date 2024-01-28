@@ -48,6 +48,64 @@ Node* createNode(int data)
     return newNode;
 }
 
+//Function to create a Linked List
+Node *createLinkedList(Node* head)
+{
+    cout<<"Enter the size of the newly created linked list."<<endl;
+    int size;
+    cin>>size;
+    while(size-->0)
+    {
+        Node* new_node = new Node;
+        cout << "Enter data: ";
+        cin >> new_node->data;
+        new_node->next = NULL;
+        if(head == NULL)
+        {
+            head = new_node;
+        }
+        else
+        {
+            Node* temp = head;
+            while (temp->next != NULL)
+            {
+                temp = temp->next;
+            }
+            temp->next = new_node;
+        }
+    }
+    return head;
+}
+
+//Function to create a cycle
+void createCycle(Node* &head,int pos) {
+    Node* ptr = head;
+    Node* temp = head;
+    int cnt = 0;
+    while(temp->next != NULL) 
+    {
+        if(cnt != pos) 
+        {
+            ++cnt;
+            ptr = ptr->next;
+        } 
+        temp = temp->next;
+    }
+    temp->next = ptr;
+}
+
+// Function to display the linked list
+void displayLinkedList(Node* head) 
+{
+    Node* temp = head;
+    while (temp != nullptr) 
+    {
+        cout << temp->data << " -> ";
+        temp = temp->next;
+    }
+    cout << "nullptr" << endl;
+}
+
 //Time Complexity: O(N * 2 * log(N) )The algorithm traverses the linked list once, performing hashmap insertions and searches in the while loop for each node. The insertion and search operations in the unordered_map have a worst-case time complexity of O(log(N)). As the loop iterates through N nodes, the total time complexity is determined by the product of the traversal (O(N)) and the average-case complexity of the hashmap operations (insert and search), resulting in O(N * 2 * log(N)). 
 //Hashmaps and their time complexities are discussed in more detail here. 
 //Space Complexity: O(N) The code uses a hashmap/dictionary to store encountered nodes, which can take up to O(N) additional space, where ‘n’ is the number of nodes in the list. Hence, the spacecomplexity is O(N) due to the use of the map to track nodes.
@@ -89,32 +147,23 @@ bool detectCycle(Node* head)
 int main() 
 {
     Node* head = nullptr;
-    Node* Node1 = new Node();
-    Node1 = createNode(1);
-    head = Node1;
+    cout<<"Create a Linked List:"<<endl;
+    head = createLinkedList(head);
+    cout<<"Linked List After creation :"<<endl;
+    displayLinkedList(head);
+    cout<<"Creare Cycle in Linked List :"<<endl;
+    createCycle(head,3);
+    cout<<"Linked List After Cycle creation :"<<endl;
+    displayLinkedList(head);
 
-    Node* Node2 = new Node();
-    Node2 = createNode(2);
-
-    Node* Node3 = new Node();
-    Node3 = createNode(3);
-
-    Node* Node4 = new Node();
-    Node4 = createNode(4);
-
-    Node* Node5 = new Node();
-    Node5 = createNode(5);
-
-    Node5->next = Node3;
-
-    if(detectLoop(head) && detectCycle(head))
-    {
-        cout<<"Loop detected in the linked list."<<endl;
-    } 
-    else 
-    {
-        cout<<"No loop detected in the linked list."<<endl;
-    }
-    return 0;
+    // if(detectLoop(head) && detectCycle(head))
+    // {
+    //     cout<<"Loop detected in the linked list."<<endl;
+    // } 
+    // else 
+    // {
+    //     cout<<"No loop detected in the linked list."<<endl;
+    // }
+    // return 0;
 }
 
