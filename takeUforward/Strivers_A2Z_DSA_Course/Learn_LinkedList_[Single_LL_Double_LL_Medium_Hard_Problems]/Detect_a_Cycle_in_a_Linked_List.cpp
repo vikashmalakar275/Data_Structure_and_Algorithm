@@ -33,22 +33,20 @@ Explanation: : In this example, the linked list does not have a loop hence retur
 #include <unordered_map>
 using namespace std;
 
-class Node 
-{
-    public:
-    int data;        
+//Linked List Creation Logic Start
+struct Node {
+    int data;
     Node* next;
-    Node(int data1, Node* next1) 
-    {
-        data = data1;
-        next = next1;
-    }
-    Node(int data1) 
-    {
-        data = data1;
-        next = nullptr;
-    }
 };
+
+// Function to create a new node
+Node* createNode(int data)
+{
+    Node* newNode = new Node;
+    newNode->data = data;
+    newNode->next = nullptr;
+    return newNode;
+}
 
 //Time Complexity: O(N * 2 * log(N) )The algorithm traverses the linked list once, performing hashmap insertions and searches in the while loop for each node. The insertion and search operations in the unordered_map have a worst-case time complexity of O(log(N)). As the loop iterates through N nodes, the total time complexity is determined by the product of the traversal (O(N)) and the average-case complexity of the hashmap operations (insert and search), resulting in O(N * 2 * log(N)). 
 //Hashmaps and their time complexities are discussed in more detail here. 
@@ -90,17 +88,24 @@ bool detectCycle(Node* head)
 
 int main() 
 {
-    Node* head = new Node(1);
-    Node* second = new Node(2);
-    Node* third = new Node(3);
-    Node* fourth = new Node(4);
-    Node* fifth = new Node(5);
+    Node* head = nullptr;
+    Node* Node1 = new Node();
+    Node1 = createNode(1);
+    head = Node1;
 
-    head->next = second;
-    second->next = third;
-    third->next = fourth;
-    fourth->next = fifth;
-    fifth->next = third; 
+    Node* Node2 = new Node();
+    Node2 = createNode(2);
+
+    Node* Node3 = new Node();
+    Node3 = createNode(3);
+
+    Node* Node4 = new Node();
+    Node4 = createNode(4);
+
+    Node* Node5 = new Node();
+    Node5 = createNode(5);
+
+    Node5->next = Node3;
 
     if(detectLoop(head) && detectCycle(head))
     {
@@ -110,11 +115,6 @@ int main()
     {
         cout<<"No loop detected in the linked list."<<endl;
     }
-    delete head;
-    delete second;
-    delete third;
-    delete fourth;
-    delete fifth;
     return 0;
 }
 
