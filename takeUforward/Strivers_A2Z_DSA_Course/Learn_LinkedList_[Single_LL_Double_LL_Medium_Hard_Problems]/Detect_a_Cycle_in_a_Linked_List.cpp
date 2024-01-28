@@ -49,11 +49,8 @@ Node* createNode(int data)
 }
 
 //Function to create a Linked List
-Node *createLinkedList(Node* head)
+Node *createLinkedList(Node* head,int size)
 {
-    cout<<"Enter the size of the newly created linked list."<<endl;
-    int size;
-    cin>>size;
     while(size-->0)
     {
         Node* new_node = new Node;
@@ -81,7 +78,7 @@ Node *createLinkedList(Node* head)
 void createCycle(Node* &head,int pos) {
     Node* ptr = head;
     Node* temp = head;
-    int cnt = 0;
+    int cnt = 1;
     while(temp->next != NULL) 
     {
         if(cnt != pos) 
@@ -95,15 +92,25 @@ void createCycle(Node* &head,int pos) {
 }
 
 // Function to display the linked list
-void displayLinkedList(Node* head) 
+void displayLinkedList(Node* head,int size) 
 {
+    int count = 0;
     Node* temp = head;
     while (temp != nullptr) 
     {
         cout << temp->data << " -> ";
         temp = temp->next;
+        count++;
+        if(count == (size+1))
+        {
+            break;
+        }
     }
-    cout << "nullptr" << endl;
+    if( temp == nullptr)
+    {
+        cout << "nullptr" << endl;
+    }
+    cout<<endl;
 }
 
 //Time Complexity: O(N * 2 * log(N) )The algorithm traverses the linked list once, performing hashmap insertions and searches in the while loop for each node. The insertion and search operations in the unordered_map have a worst-case time complexity of O(log(N)). As the loop iterates through N nodes, the total time complexity is determined by the product of the traversal (O(N)) and the average-case complexity of the hashmap operations (insert and search), resulting in O(N * 2 * log(N)). 
@@ -146,24 +153,27 @@ bool detectCycle(Node* head)
 
 int main() 
 {
+    int size;
     Node* head = nullptr;
     cout<<"Create a Linked List:"<<endl;
-    head = createLinkedList(head);
+    cout<<"Enter the size of the newly created linked list."<<endl;
+    cin>>size;
+    head = createLinkedList(head,size);
     cout<<"Linked List After creation :"<<endl;
-    displayLinkedList(head);
-    cout<<"Creare Cycle in Linked List :"<<endl;
-    createCycle(head,3);
-    cout<<"Linked List After Cycle creation :"<<endl;
-    displayLinkedList(head);
+    displayLinkedList(head,size);
+    // cout<<"Creare Cycle in Linked List :"<<endl;
+    // createCycle(head,3);
+    // cout<<"Linked List After Cycle creation :"<<endl;
+    // displayLinkedList(head,size);
 
-    // if(detectLoop(head) && detectCycle(head))
-    // {
-    //     cout<<"Loop detected in the linked list."<<endl;
-    // } 
-    // else 
-    // {
-    //     cout<<"No loop detected in the linked list."<<endl;
-    // }
-    // return 0;
+    if(detectLoop(head) && detectCycle(head))
+    {
+        cout<<"Loop detected in the linked list."<<endl;
+    } 
+    else 
+    {
+        cout<<"No loop detected in the linked list."<<endl;
+    }
+    return 0;
 }
 
