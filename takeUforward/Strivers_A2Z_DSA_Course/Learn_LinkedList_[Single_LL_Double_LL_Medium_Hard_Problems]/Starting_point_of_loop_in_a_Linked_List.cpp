@@ -107,6 +107,10 @@ void displayLinkedList(Node* head,int size)
     cout<<endl;
 }
 
+//Time Complexity: O(N)
+//Reason: Iterating the entire list once.
+//Space Complexity: O(N)
+//Reason: We store all nodes in a hash table.
 Node *starting_point_of_loop_1(Node* head)
 {
     Node* temp = head;
@@ -134,6 +138,36 @@ int getLoopStartingPostion(Node* head,Node* res)
     return pos;
 }
 
+//Time Complexity: O(N)
+//Reason: We can take overall iterations and club them to O(N)
+//Space Complexity: O(1)
+//Reason: No extra data structure is used.
+Node* starting_point_of_loop_2(Node* head) 
+{
+    if(head == NULL||head->next == NULL)
+    {
+        return NULL;
+    }   
+    Node* fast = head;
+    Node* slow = head;
+    Node* entry = head;   
+    while(fast->next != NULL && fast->next->next != NULL) 
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+        if(slow == fast) 
+        {
+            while(slow != entry) 
+            {
+                slow = slow->next;
+                entry = entry->next;
+            }
+            return slow;
+        }
+    }
+    return NULL;
+}
+
 int main() 
 {
     int size;
@@ -150,6 +184,23 @@ int main()
     displayLinkedList(head,size);
 
     Node* res = starting_point_of_loop_1(head);
-    cout<<"Loop started from position : "<<getLoopStartingPostion(head,res)<<endl;
+    if(res != NULL)
+    {
+        cout<<"Loop started from position : "<<getLoopStartingPostion(head,res)<<endl;
+    }
+    else
+    {
+        cout<<"No Loop is there."<<endl;
+    }
+
+    Node* res1 = starting_point_of_loop_2(head);
+    if(res1 != NULL)
+    {
+        cout<<"Loop started from position : "<<getLoopStartingPostion(head,res1)<<endl;
+    }
+    else
+    {
+        cout<<"No Loop is there."<<endl;
+    }
     return 0;
 }
