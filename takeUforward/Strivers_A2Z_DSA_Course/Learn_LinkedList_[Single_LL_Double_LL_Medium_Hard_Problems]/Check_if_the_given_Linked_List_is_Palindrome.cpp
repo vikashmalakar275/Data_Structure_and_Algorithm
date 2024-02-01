@@ -107,6 +107,52 @@ bool is_LinkedList_Palindrome_1(Node* head)
     return true;
 }
 
+
+//Time Complexity: O (2* N) The algorithm traverses the linked list twice, dividing it into halves. During the first traversal, it reverses one-half of the list, and during the second traversal, it compares the elements of both halves. As each traversal covers N/2 elements, the time complexity is calculated as O(N/2 + N/2 + N/2 + N/2), which simplifies to O(2N), ultimately representing O(N). 
+//Space Complexity: O(1) The approach uses a constant amount of additional space regardless of the size of the input linked list. It doesn’t allocate any new data structures that depend on the input size, resulting in a space complexity of O(1).
+Node* reverseLinkedList(Node* head) 
+{
+    if(head == NULL || head->next == NULL)
+    {
+        return head; 
+    }
+    Node* newHead = reverseLinkedList(head->next);
+    Node* front = head->next;
+    front->next = head;
+    head->next = NULL;
+    return newHead;
+}
+
+bool is_LinkedList_Palindrome_2(Node* head)
+{
+    if(head == NULL || head->next == NULL)
+    {
+        return true; 
+    }
+    Node* slow = head;
+    Node* fast = head;
+    while (fast->next != NULL && fast->next->next != NULL)
+    {
+        slow = slow->next;
+        fast = fast->next->next;  
+    }
+    Node* newHead = reverseLinkedList(slow->next);
+    Node* first = head;
+    Node* second = newHead; 
+    while (second != NULL)
+    {
+        if (first->data != second->data)
+        {
+            reverseLinkedList(newHead);  
+            return false;
+        }
+        first = first->next;
+        second = second->next;  
+    }
+    reverseLinkedList(newHead);
+    return true;  
+}
+
 int main() 
 {
     Node* head = nullptr; // Initialize the head of the linked list
@@ -114,7 +160,11 @@ int main()
     head = createLinkedList(head);
     cout<<"Linked List After creation :"<<endl;
     displayLinkedList(head);
+
     string ans = is_LinkedList_Palindrome_1(head) ? "Yes, Linked List is Palindrome." : "No, Linked List Not a Palindrome." ;
     cout<<ans<<endl;
+
+    string ans1 = is_LinkedList_Palindrome_2(head) ? "Yes, Linked List is Palindrome." : "No, Linked List Not a Palindrome." ;
+    cout<<ans1<<endl;
     return 0;
 }
