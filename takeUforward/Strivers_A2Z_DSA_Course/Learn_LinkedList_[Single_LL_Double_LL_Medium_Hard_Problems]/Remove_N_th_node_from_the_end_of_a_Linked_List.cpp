@@ -114,6 +114,31 @@ Node* remove_Nth_node_from_end_1(Node* head,int n)
     return head;
 }
 
+Node* remove_Nth_node_from_end_2(Node* head,int n)
+{
+    Node* fast = head;
+    Node* slow = head;
+
+    for(int i=0;i<n;i++)
+    {
+        fast = fast->next;
+    }
+    if(fast == NULL)
+    {
+        return head->next;
+    }
+
+    while(fast->next != NULL)
+    {
+        fast = fast->next;
+        slow = slow->next;
+    }
+    Node* del = slow->next;
+    slow->next = slow->next->next;
+    delete(del);
+    return head;
+}
+
 int main() 
 {
     Node* head = nullptr; // Initialize the head of the linked list
@@ -125,8 +150,14 @@ int main()
     int n;
     cout<<"Enter the position you want to delete from END :"<<endl;
     cin>>n;
-    head = remove_Nth_node_from_end_1(head,n);
+
+    Node* res_head1 = remove_Nth_node_from_end_1(head,n);
     cout<<"Linked List after delete Nth Node from the end"<<endl;
-    displayLinkedList(head);
+    displayLinkedList(res_head1);
+
+    Node* res_head2 = remove_Nth_node_from_end_2(head,n);
+    cout<<"Linked List after delete Nth Node from the end"<<endl;
+    displayLinkedList(res_head2);
+
     return 0;
 }
