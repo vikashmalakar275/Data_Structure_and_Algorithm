@@ -19,8 +19,8 @@ struct Tick {
 
 class OrderProcessor {
 private:
-    std::map<std::string, std::multimap<double, Order, std::greater<double>>> buyOrders; // Buy: Highest price first
-    std::map<std::string, std::multimap<double, Order, std::less<double>>> sellOrders;   // Sell: Lowest price first
+    std::map<std::string, std::multimap<double, Order, std::greater<double> > > buyOrders; // Buy: Highest price first
+    std::map<std::string, std::multimap<double, Order, std::less<double> > > sellOrders;   // Sell: Lowest price first
 
 public:
     void addOrder(const Order& order) {
